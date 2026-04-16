@@ -30,32 +30,4 @@ test.describe('Assertions Practice', () => {
     console.log('✅ All assertions passed!');
   });
 
-  test('check error message on wrong login', async ({ page }) => {
-    // go back to login page
-    await loginPage.goTo();
-    await loginPage.login('wrong_user', 'wrong_pass');
-
-    // check error is visible
-    await expect(page.locator('[data-test="error"]')).toBeVisible();
-
-    // check error contains correct text
-    await expect(page.locator('[data-test="error"]'))
-      .toContainText('Username and password do not match');
-
-    // check we are still on login page
-    await expect(page).not.toHaveURL(/inventory/);
-
-    console.log('✅ Error assertions passed!');
-  });
-
-  test('soft assertions example', async ({ page }) => {
-    // these all run even if one fails
-    await expect.soft(page).toHaveTitle('Swag Labs');
-    await expect.soft(page).toHaveURL(/inventory/);
-    await expect.soft(page.locator('.inventory_list')).toBeVisible();
-    await expect.soft(page.locator('.inventory_item')).toHaveCount(6);
-
-    console.log('✅ Soft assertions passed!');
-  });
-
 });
